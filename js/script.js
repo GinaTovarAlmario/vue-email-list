@@ -13,20 +13,24 @@ const { createApp } = Vue;
 createApp({
     data() {
         return {
-            email:'',
-            apiUrl: 'https://flynn.boolean.careers/exercises/api/random/mail'
+            emails:[],
+            apiUrl: 'https://flynn.boolean.careers/exercises/api/random/mail',
+            howManyEmails : 10,
         }
     },
     methods:{
-        getRandomEmails(){
+        getRandomEmail(){
             axios.get(this.apiUrl)
-            .then( function (response){
+            .then((response) =>{
+                this.emails.push(response.data.response);
                 console.log(response.data.response);
                 }
             );
         },
     },
     created(){
-        this.getRandomEmails();
+        for(let i= 0; i < this.howManyEmails; i++){
+            this.getRandomEmail();
+        }
     }
 }).mount('#app')
