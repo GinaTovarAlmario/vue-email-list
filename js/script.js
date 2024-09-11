@@ -12,8 +12,21 @@ const { createApp } = Vue;
 
 createApp({
     data() {
-      return {
-        message: 'Hello Vue!'
-      }
+        return {
+            email:'',
+            apiUrl: 'https://flynn.boolean.careers/exercises/api/random/mail'
+        }
+    },
+    methods:{
+        getRandomEmails(){
+            axios.get(this.apiUrl)
+            .then( function (response){
+                console.log(response.data.response);
+                }
+            );
+        },
+    },
+    created(){
+        this.getRandomEmails();
     }
 }).mount('#app')
